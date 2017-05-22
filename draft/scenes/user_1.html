@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User(1) 一般用户: 借阅/归还</title>
+</head>
+<body class="mdui-theme-primary-blue">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.2.1/css/mdui.min.css">
+  <div class="mdui-container mdui-typo">
+
+    <h1>借阅与归还</h1>
+
+    <div class="mdui-row">
+
+<div class="mdui-card mdui-hoverable mdui-col-sm-6">
+
+  <div class="mdui-tab" mdui-tab>
+    <a href="#example1-tab1" class="mdui-ripple">借阅</a>
+    <a href="#example1-tab2" class="mdui-ripple">归还</a>
+    <div class="mdui-textfield mdui-m-l-2">
+      <i class="mdui-icon material-icons">&#xe8b6;</i>
+      <input class="mdui-textfield-input" type="text" placeholder="按回车搜索书名"/>
+    </div>
+  </div>
+  <div id="example1-tab1" class="mdui-p-a-2">
+
+<div class="mdui-table-fluid">
+  <table class="mdui-table mdui-table-selectable">
+    <thead>
+      <tr>
+        <th>书名</th>
+        <th class="mdui-table-col-numeric">可借数量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="mdui-table-row-selected">
+        <td>Frozen yogurt</td>
+        <td>159</td>
+      </tr>
+      <tr>
+        <td>Ice cream sandwich</td>
+        <td>237</td>
+      </tr>
+      <tr>
+        <td>Eclair</td>
+        <td>262</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mdui-card-actions">
+  <button class="mdui-btn mdui-ripple mdui-float-right mdui-text-color-theme">借</button>
+</div>
+
+  </div>
+  <div id="example1-tab2" class="mdui-p-a-2">
+
+
+<div class="mdui-table-fluid">
+  <table class="mdui-table mdui-table-selectable">
+    <thead>
+      <tr>
+        <th>书名</th>
+        <th class="mdui-table-col-numeric">到期时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="mdui-table-row-selected">
+        <td>Frozen yogurt</td>
+        <td>2017 年 4 月 32 日</td>
+      </tr>
+      <tr>
+        <td>Ice cream sandwich</td>
+        <td>2017 年 4 月 33 日</td>
+      </tr>
+      <tr>
+        <td>Eclair</td>
+        <td>2017 年 4 月 34 日</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mdui-card-actions">
+  <button class="mdui-btn mdui-ripple mdui-float-right mdui-text-color-theme">还</button>
+</div>
+
+  </div>
+</div>
+
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.2.1/js/mdui.min.js"></script>
+</body>
+</html>
