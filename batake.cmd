@@ -9,12 +9,13 @@ goto :EOF
 echo Hello world!
 goto :EOF
 
-:push to GitHub
+:commit to repo
 git add .
-rem DATE is 2017/05/21 周日 # chinese order
-set date=%DATE:~0,4%-%DATE:~5,2%-%DATE:~8,2%
-echo `git commit -m "Updated at %date% %TIME%"`
-choice /c YN /m "Are you sure? "
-if errorlevel 1 ( git commit -m "Updated at %date% %TIME%" )
+git commit
+goto :EOF
+
+:push to GitHub
+call :commit
+git push
 goto :EOF
 
