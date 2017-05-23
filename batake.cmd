@@ -18,4 +18,3 @@ goto :EOF
 call :commit
 git push
 goto :EOF
-
