@@ -2,7 +2,7 @@
 
 [中文文档](README-zh.md)
 
-Java course work using [sqlite][1]-[jdbc][2], [JavaFX][3] 。
+Java course work using [sqlite][1]-[jdbc][2], [JavaFX][3].
 
 ## Folder Structure
 
