@@ -9,7 +9,12 @@ goto :EOF
 echo Hello world!
 goto :EOF
 
+:clean
+cmd /c test\clean
+goto :EOF
+
 :commit to repo
+call :clean
 git add .
 git commit
 goto :EOF
