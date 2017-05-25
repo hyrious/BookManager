@@ -26,42 +26,34 @@
 
 ## 代码结构设计
 
-    class Main { // is the only Controller
-      User user
+    class Main
       SQLite db
-      // load scenes from FXML
-      // methods as Controller
-      login() {
-        db.login(
-          textFieldDatabase.getText(),
-          textFieldUsername.getText(),
-          textFieldPassword.getText()
-        ) // db has changed states
-      } rescue {
-        // printStackTrace()
-      }
-    }
+      ... # other variables or state
+      Scene scene_login
+      ... # other scenes
+      start(window)
+        db = SQLite.new
+        scene_map = HashMap.new(id, Scene)
+        
+        loader_login = FXMLLoader.new("login.fxml")
+        scene_login = Scene.new(loader_login.load())
+        scene_map.put("login", scene_login)
+        
+        loader_login.getController<LoginController>().use(db, window, scene_map)
+        loader_borrow.getController<LoginController>().use(db, window, scene_map)
+        ...
 
-相当简化的结构。
+        window.setScene(scene_map.get("login"))
+        window.show()
 
-也许可以出个 DSL。
+都简写成这样了还是一堆冗余，我们来造个 DSL 吧
 
-    User
-      ...
-    SQLite
-      ...
-    Main
-      User user
-      SQLite db
-      default Scene login { // #sceneLogin
-        VBox {
-          HBox { Label{text "Database"}; TextField(id "Database") }
-          HBox { Label{text "Username"}; TextField(id "Username") }
-          HBox { Label{text "Password"}; TextField(id "Password") }
-          HBox { Button:login; Button:exit }
-        }
-      }
-      Scene borrow { ... }
-      Scene return { ... }
-      loginLogin() { ... }
-      loginExit() { ... }
+    scene :login
+      layout
+        VBox
+          <%= %W[Database Username Password].map{|e| HBox(Label(e), TextField(e)) } %>
+          HBox(Button("Connect"), Button("Exit"))
+      button :connect
+        db.connect $database, $username, $password
+      button :exit
+        window.close
