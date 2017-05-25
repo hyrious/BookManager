@@ -8,6 +8,7 @@ Java course work using [sqlite][1]-[jdbc][2], [JavaFX][3].
 
     draft/    # design/unfinished-documentation
     test/     # code-snippets/test-apis
+    src/      # source code
 
 ## Limitation
 
