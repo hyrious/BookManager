@@ -7,6 +7,7 @@ goto :EOF
 
 :clean
 cmd /c test\clean
+rd /s/q bin 2>nul
 goto :EOF
 
 :commit to repo

@@ -7,11 +7,11 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public final class DataBase {
-
     private static final char[] hexArray = "0123456789ABCDEF".toCharArray();
     private static final String ALGORITHM = "SHA1";
     public static Connection db = null;
     public static Integer user_id = null;
+    public static String user_name = null;
     public static Integer permission = null;
 
     private static final void connect(String file) throws SQLException {
@@ -40,6 +40,7 @@ public final class DataBase {
         if (!set.isBeforeFirst()) // not found user or faulty password
             return false;
         user_id = set.getInt("id");
+        user_name = name;
         permission = set.getInt("permission");
         // Debug
         System.out.println("Login by" + " (" + user_id + ") " + name + " with permission " + permission + ".");
@@ -73,13 +74,14 @@ public final class DataBase {
         return sha1((new StringBuffer(str.concat("bkmgr"))).reverse().toString());
     }
 
-    public static void use(String f, String n, String p) {
+    public static boolean use(String f, String n, String p) {
         try {
             connect(f);
             install();
-            login(n, p);
+            return login(n, p);
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -99,6 +101,10 @@ public final class DataBase {
         return db.createStatement().executeUpdate(sql);
     }
 
+    public static PreparedStatement prepare(String sql) throws SQLException {
+        return db.prepareStatement(sql);
+    }
+
     public static ResultSet query(String sql) throws SQLException {
         return db.createStatement().executeQuery(sql);
     }
@@ -112,7 +118,8 @@ public final class DataBase {
     }
 
     public static void main(String[] args) {
-        use("library.db", "sa", "sa");
-        // System.out.println(sha1("rgmkbas"));
+        // DataBase.use("library.db", "sa", "sa"); // false when login failed
+        // PreparedStatement st = DataBase.prepare("insert into user (name, password, permission) values ( ?, ?, ? )")
+        // DataBase.close();
     }
 }
