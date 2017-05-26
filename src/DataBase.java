@@ -28,7 +28,7 @@ public final class DataBase {
                 "create table if not exists borrow ( user_id integer, book_id integer, due text, primary key(user_id, book_id), foreign key(user_id) references user(id), foreign key(book_id) references book(id) )",
                 "create table if not exists return ( user_id integer, book_id integer, ret text, primary key(user_id, book_id), foreign key(user_id) references user(id), foreign key(book_id) references book(id) )"
         });
-        if (!query("select * from user where name = 'sa'").isBeforeFirst())
+        if (!exists("select * from user where name = 'sa'"))
             update("insert into user ( name, password, permission ) values ( 'sa', '5C37E86672A3AE4CCFB1E9D3F5907DD62D856DFC', 6 )");
     }
 
@@ -101,6 +101,10 @@ public final class DataBase {
 
     public static ResultSet query(String sql) throws SQLException {
         return db.createStatement().executeQuery(sql);
+    }
+
+    public static boolean exists(String sql) throws SQLException {
+        return query(sql).isBeforeFirst();
     }
 
     public static void close() throws SQLException {
