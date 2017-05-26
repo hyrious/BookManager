@@ -19,12 +19,12 @@ create table borrow (
   user_id     integer,
   book_id     integer,
   due         text, -- date('now', '+14 day')
-  primary key(user_id, book_id)
+  primary key(user_id, book_id),
   foreign key(user_id) references user(id),
   foreign key(book_id) references book(id)
 );
 
-create table log (
+create table return (
   user_id     integer,
   book_id     integer,
   ret         text,
