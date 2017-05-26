@@ -24,7 +24,7 @@ goto :EOF
 echo [ Cleaning.. ]
 del /s/f/q bin\*.class 2>nul
 rd /s/q bin 2>nul
-echo [ Running.. ]
+echo [ Compiling and Running.. ]
 md bin
 javac -cp sqlite-jdbc-3.18.0.jar;bin -d bin src\*.java
 ruby classes.rb bin
