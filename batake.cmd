@@ -23,6 +23,7 @@ goto :EOF
 
 :test this project
 echo [ Cleaning.. ]
+del library.db
 del /s/f/q bin\*.class 2>nul
 rd /s/q bin 2>nul
 echo [ Compiling and Running.. ]

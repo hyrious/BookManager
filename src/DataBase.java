@@ -113,8 +113,10 @@ public final class DataBase {
         return query(sql).isBeforeFirst();
     }
 
-    public static void close() throws SQLException {
-        if (db != null) db.close();
+    public static void close() {
+        if (db != null) try { db.close(); } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
