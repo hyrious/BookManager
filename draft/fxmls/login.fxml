@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <children>
       <Label text="图书管理系统">
          <VBox.margin>
@@ -49,9 +48,9 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </GridPane.margin>
             </Label>
-            <PasswordField fx:id="pw" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="db" text="library.db" GridPane.columnIndex="1" />
             <TextField fx:id="user" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="pw" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="8.0" />
@@ -62,12 +61,12 @@
       </GridPane>
       <HBox alignment="CENTER_RIGHT" spacing="8.0">
          <children>
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#exit" text="退出">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#login" text="登录">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#login" text="登录">
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#exit" text="退出">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
