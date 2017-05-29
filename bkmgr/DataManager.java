@@ -152,6 +152,15 @@ public class DataManager {
             user = rhs;
     }
 
+    public static Boolean loggedin() {
+        return loggedin;
+    }
+    
+    public static void init() {
+        connect();
+        install();
+    }
+
     public static void main(String[] args) {
         // connect();
         // install();
