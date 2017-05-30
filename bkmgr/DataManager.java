@@ -139,23 +139,26 @@ public class DataManager {
                 "create table if not exists user ( id integer primary key, name text not null, password text not null, permission integer default 1 )",
                 "create table if not exists borrow ( user_id integer, book_id integer, due text, primary key(user_id, book_id), foreign key(user_id) references user(id), foreign key(book_id) references book(id) )",
                 "create table if not exists return ( user_id integer, book_id integer, ret text, primary key(user_id, book_id), foreign key(user_id) references user(id), foreign key(book_id) references book(id) )",
-                "create view if not exists borrow_book as select user_id, book_id, book.title as title from borrow join book on borrow.book_id = book.id");
+                "create view if not exists borrow_book as select user_id, user.name, book_id, book.title from borrow join book on borrow.book_id = book.id join user on borrow.user_id = user.id",
+                "create view if not exists book_owner as select book.id, book.title, book.owner, user.name from book join user on book.owner = user.id");
         if (!exists("select * from user where name = 'sa'"))
             update("insert into user ( name, password, permission ) values ( 'sa', '5C37E86672A3AE4CCFB1E9D3F5907DD62D856DFC', 6 )");
     }
 
-    public static void login() {
+    public static Boolean login() {
+        loggedin = false;
         User rhs = findUser(user.getName());
         if (rhs != null)
             loggedin = rhs.getPassword().equals(user.getPassword());
         if (loggedin)
             user = rhs;
+        return loggedin;
     }
 
     public static Boolean loggedin() {
         return loggedin;
     }
-    
+
     public static void init() {
         connect();
         install();

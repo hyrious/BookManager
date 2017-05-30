@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="bkmgr.LoginController">
+<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bkmgr.LoginController">
   <children>
      <Label text="图书管理系统">
         <VBox.margin>
@@ -72,6 +72,9 @@
               </HBox.margin>
            </Button>
         </children>
+         <padding>
+            <Insets bottom="8.0" right="8.0" />
+         </padding>
      </HBox>
   </children>
   <padding>

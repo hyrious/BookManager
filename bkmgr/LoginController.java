@@ -15,11 +15,14 @@ public class LoginController {
     }
 
     @FXML void login(ActionEvent event) {
+        DataManager.setFile(db.getText());
         DataManager.setUser(new User(user.getText(), DataManager.encrypt(pw.getText())));
-        DataManager.login();
-        if (DataManager.loggedin()) {
+        if (DataManager.login()) {
             System.out.println("Logged in by " + DataManager.getUser());
-            System.out.println("SceneManager.call(\"borrow\")");
+            System.out.println("SceneManager.call(\"manage\")");
+            SceneManager.call("manage");
+        } else {
+            System.out.println("Logged failed, check your name and password");
         }
     }
 

@@ -9,9 +9,8 @@ public class Main extends Application {
     @Override public void start(Stage window) throws Exception {
         SceneManager.setWindow(window);
 
-        SceneManager.set("login", new Scene(FXMLLoader.load(getClass().getResource("login.fxml"))));
-        // SceneManager.set("borrow", new
-        // Scene(FXMLLoader.load(getClass().getResource("borrow.fxml"))));
+        SceneManager.set("login", new Scene(FXMLLoader.load(getClass().getResource("Login.fxml"))));
+        SceneManager.set("manage", new Scene(FXMLLoader.load(getClass().getResource("Manage.fxml"))));
 
         DataManager.init();
         SceneManager.call("login");
