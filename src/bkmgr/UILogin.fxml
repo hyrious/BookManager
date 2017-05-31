@@ -70,14 +70,30 @@
      </GridPane>
    </center>
    <bottom>
-     <Button defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" text="登录" BorderPane.alignment="CENTER">
+      <GridPane hgap="8.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="8.0" />
          </BorderPane.margin>
-         <font>
-            <Font size="18.0" />
-         </font>
-     </Button>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+           <Button defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" text="登录">
+               <font>
+                  <Font size="18.0" />
+               </font>
+           </Button>
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#register" text="注册" GridPane.columnIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
    </bottom>
    <padding>
       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

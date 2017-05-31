@@ -8,6 +8,9 @@ Still under development.
 
 It's a typical [eclipse][4] project.
 
+To get things done, firstly add [sqlite-jdbc][2] and [lombok][5] jars into this project's
+building path.
+
 If eclipse won't run/debug, try Project -> Clean...
 
 Default SuperAdmin's account is (sa, sa).

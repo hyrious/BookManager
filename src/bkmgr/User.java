@@ -10,6 +10,15 @@ public class User {
         this.name.set(name);
         this.password.set(password);
     }
+    public User(final int id, final String name, final String password, final boolean canBorrow, final boolean canManageBook, final boolean canManageUser) {
+        super();
+        this.id.set(id);
+        this.name.set(name);
+        this.password.set(password);
+        this.canBorrow.set(canBorrow);
+        this.canManageBook.set(canManageBook);
+        this.canManageUser.set(canManageUser);
+    }
     // 我跟你讲，这页代码全是用下面六行生成出来的
     public SimpleIntegerProperty id            = new SimpleIntegerProperty(1);
     public SimpleStringProperty  name          = new SimpleStringProperty();

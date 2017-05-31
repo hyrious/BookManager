@@ -9,6 +9,12 @@ public class Book {
         this.title.set(title);
         this.owner.set(owner);
     }
+    public Book(final int id, final String title, final int owner) {
+        super();
+        this.id.set(id);
+        this.title.set(title);
+        this.owner.set(owner);
+    }
     // 我跟你讲，这页代码全是用下面三行生成出来的
     public SimpleIntegerProperty id    = new SimpleIntegerProperty(1);
     public SimpleStringProperty  title = new SimpleStringProperty("");
