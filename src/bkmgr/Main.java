@@ -9,6 +9,7 @@ public class Main extends Application {
         SceneManager.set("login", new SceneLogin(getClass().getResource("UILogin.fxml")));
         SceneManager.start(window, "login");
     }
+
     public static void main(String[] args) {
         launch(args);
     }

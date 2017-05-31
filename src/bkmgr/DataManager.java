@@ -154,25 +154,14 @@ public final class DataManager {
             return update("delete from ".concat(sql), params);
         }
 
-        public interface Listener {
-            default void callback(ResultSet resultSet) {}
+        @FunctionalInterface public interface Listener {
+            void callback(ResultSet resultSet);
         }
 
         /** Usage:
          * 
          * <pre>
-         * SQLHelper.select("", new SQLHelper.Listener() {
-         *     public void callback(ResultSet resultSet) {
-         *         try {
-         *             while (resultSet.next()) {
-         *                 System.out.println(resultSet.getInt(1));
-         *                 System.out.println(resultSet.getString(5));
-         *             }
-         *         } catch (SQLException e) {
-         *             e.printStackTrace();
-         *         }
-         *     }
-         * });
+         * SQLHelper.select("sql ?", r -> {}, "params");
          * </pre>
         */
         public static void select(String sql, Listener listener, Object... params) {
@@ -202,12 +191,10 @@ public final class DataManager {
         private static boolean existsFlag = false;
 
         public static boolean exists(String sql, Object... params) {
-            select(sql, new SQLHelper.Listener() {
-                public void callback(ResultSet resultSet) {
-                    try {
-                        existsFlag = resultSet.isBeforeFirst();
-                    } catch (SQLException e) {}
-                }
+            select(sql, r -> {
+                try {
+                    existsFlag = r.isBeforeFirst();
+                } catch (SQLException e) {}
             }, params);
             return existsFlag;
         }

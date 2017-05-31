@@ -9,6 +9,7 @@ import lombok.Data;
 public @Data abstract class SceneBase {
     public Scene      scene;
     public FXMLLoader loader;
+
     public SceneBase(URL resource) {
         loader = new FXMLLoader(resource);
         try {
@@ -18,6 +19,7 @@ public @Data abstract class SceneBase {
             e.printStackTrace();
         }
     }
+
     public <T> T _getController() {
         return loader.<T>getController();
     }
