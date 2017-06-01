@@ -15,7 +15,6 @@ public class ControllerLogin {
     // return new User(textFieldUsername.getText(),
     // DataManager.encrypt(textFieldPassword.getText()));
     // }
-    private Alert               emptyError   = new Alert(AlertType.ERROR);
     private Alert               loginFailed  = new Alert(AlertType.ERROR);
     private Alert               registFailed = new Alert(AlertType.ERROR);
 
@@ -26,7 +25,6 @@ public class ControllerLogin {
     }
 
     @FXML void initialize() {
-        set(emptyError, "空白的输入", "什么都不输入是不合法的。");
         set(loginFailed, "登录失败", "用户名与密码不匹配。");
         set(registFailed, "注册失败", "已经存在该用户。");
     }

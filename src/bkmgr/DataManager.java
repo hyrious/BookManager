@@ -73,7 +73,7 @@ public final class DataManager {
                 if (param instanceof java.lang.Integer) {
                     statement.setInt(i, (Integer) param);
                 } else if (param instanceof java.lang.Boolean) {
-                    statement.setInt(i, (Integer) param);
+                    statement.setInt(i, (boolean) param ? 1 : 0);
                 } else if (param instanceof java.lang.String) {
                     statement.setString(i, (String) param);
                 }
@@ -173,8 +173,7 @@ public final class DataManager {
                 conn = getConnection();
                 statement = conn.prepareStatement(sql);
                 if (params.length > 0) statement = paramsSet(statement, params);
-                statement.executeUpdate();
-                ResultSet resultSet = statement.getGeneratedKeys();
+                ResultSet resultSet = statement.executeQuery();
                 listener.callback(resultSet);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -192,6 +191,7 @@ public final class DataManager {
 
         public static boolean exists(String sql, Object... params) {
             select(sql, r -> {
+                existsFlag = false;
                 try {
                     existsFlag = r.isBeforeFirst();
                 } catch (SQLException e) {}
@@ -228,4 +228,21 @@ public final class DataManager {
     public static User                 user      = null;
     public static ObservableList<User> all_users = FXCollections.observableArrayList();
     public static ObservableList<Book> all_books = FXCollections.observableArrayList();
+
+    public static void main(String[] args) {
+        file = "library.db";
+        /** Test
+         * 
+         * <pre>
+         * update("create table if not exists test (id integer primary key, value text not null)");
+         * select("select value from test", r -> {
+         *     try {
+         *         while (r.next()) {
+         *             System.out.println(r.getString("value"));
+         *         }
+         *     } catch (SQLException sqle) {}
+         * });
+         * </pre>
+        */
+    }
 }
