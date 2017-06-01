@@ -1,3 +1,6 @@
+# Custom
+*.db
+
 # Compiled class file
 *.class
 
