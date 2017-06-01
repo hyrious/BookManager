@@ -229,8 +229,27 @@ public final class DataManager {
     public static ObservableList<User> all_users = FXCollections.observableArrayList();
     public static ObservableList<Book> all_books = FXCollections.observableArrayList();
 
+    public static void init() {
+        batch("create table if not exists book ( id integer primary key, title text not null, owner    integer default 1 )",
+              "create table if not exists user ( id integer primary key, name  text not null, password text not null, permission integer default 1 )",
+              "create table if not exists borrow ( user_id integer, book_id integer, due text, primary key(user_id, book_id), foreign key(user_id) references user(id), foreign key(book_id) references book(id) )",
+              "create table if not exists return ( user_id integer, book_id integer, ret text, primary key(user_id, book_id), foreign key(user_id) references user(id), foreign key(book_id) references book(id) )",
+              "create view if not exists view_borrow as select user_id, book_id, title, name, due from borrow join book on borrow.book_id = book.id join user on borrow.user_id = user.id",
+              "create view if not exists view_return as select user_id, book_id, title, name, ret from return join book on return.book_id = book.id join user on return.user_id = user.id",
+              "create view if not exists view_book as select book.id as book_id, user.id as user_id, title, name from book join user on book.owner = user.id");
+        if (!exists("select * from user where name = 'sa'"))
+            insertInto("user ( name, password, permission ) values ( ?, ?, ? )", "sa", encrypt("sa"), 6);
+    }
+
     public static void main(String[] args) {
         file = "library.db";
+        init();
+        select("select name from user", r -> {
+            try {
+                while (r.next())
+                    System.out.println(r.getString("name"));
+            } catch (SQLException e) {}
+        });
         /** Test
          * 
          * <pre>
