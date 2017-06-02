@@ -13,7 +13,7 @@
    <top>
       <Label fx:id="labelUsername" text="&lt;用户名&gt;" BorderPane.alignment="CENTER">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Label>
    </top>

@@ -33,7 +33,7 @@
                               <Insets top="8.0" />
                            </BorderPane.margin>
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Button>
                      </bottom>
@@ -60,7 +60,7 @@
                               <Insets top="8.0" />
                            </BorderPane.margin>
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Button>
                      </bottom>

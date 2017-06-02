@@ -15,6 +15,7 @@ public class ControllerNavigator extends ControllerBase {
 
     public void init() {
         super.init();
+        SceneManager.window.setTitle(DataManager.user.getName() + " - 图书管理系统");
         labelUsername.setText(DataManager.user.getName());
         buttonBorrow.setDisable(!DataManager.user.isCanBorrow());
         buttonManageBook.setDisable(!DataManager.user.isCanManageBook());
@@ -26,6 +27,7 @@ public class ControllerNavigator extends ControllerBase {
     }
     @FXML void changePassword() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
+        SceneManager.call("changePassword");
     }
     @FXML void manageBook() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());

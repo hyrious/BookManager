@@ -24,6 +24,7 @@ public class ControllerLogin extends ControllerBase {
     }
     public void init() {
         super.init();
+        SceneManager.window.setTitle("图书管理系统");
         textFieldPassword.clear();
     }
 
