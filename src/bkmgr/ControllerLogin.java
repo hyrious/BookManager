@@ -3,46 +3,69 @@ package bkmgr;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class ControllerLogin {
+public class ControllerLogin extends ControllerBase {
     @FXML private TextField     textFieldDatabase;
     @FXML private TextField     textFieldUsername;
     @FXML private PasswordField textFieldPassword;
-    // private User getUser() {
-    // return new User(textFieldUsername.getText(),
-    // DataManager.encrypt(textFieldPassword.getText()));
-    // }
-    private Alert               loginFailed  = new Alert(AlertType.ERROR);
-    private Alert               registFailed = new Alert(AlertType.ERROR);
 
-    @SuppressWarnings("unchecked") private <T> void set(T x, String title, String content) {
-        ((Dialog<String>) x).setTitle(title);
-        ((Dialog<String>) x).setHeaderText(null);
-        ((Dialog<String>) x).setContentText(content);
+    private String getDatabase() {
+        return textFieldDatabase.getText();
+    }
+
+    private String getName() {
+        return textFieldUsername.getText();
+    }
+
+    private String getPassword() {
+        return textFieldPassword.getText();
+    }
+
+    private Alert loginFailed   = new Alert(AlertType.ERROR);
+    private Alert registFailed  = new Alert(AlertType.ERROR);
+    private Alert syntaxError   = new Alert(AlertType.ERROR);
+    private Alert registSuccess = new Alert(AlertType.INFORMATION);
+
+    private void set(Alert x, String title, String content) {
+        x.setTitle(title);
+        x.setHeaderText(null);
+        x.setContentText(content);
     }
 
     @FXML void initialize() {
         set(loginFailed, "登录失败", "用户名与密码不匹配。");
         set(registFailed, "注册失败", "已经存在该用户。");
+        set(syntaxError, "格式不对", "请检查输入（数据库和用户名都不能为空）。");
+        set(registSuccess, "注册成功", "你可以使用该账户登录。");
+    }
+
+    private boolean check() {
+        if (getDatabase().isEmpty() || getName().isEmpty()) {
+            syntaxError.showAndWait();
+            return false;
+        }
+        return true;
     }
 
     @FXML void login() {
-        System.out.println(getClass().getName() + "#login();");
-        // DataManager.init(textFieldDatabase.getText());
-        // if (DataManager.login(getUser()))
-        // System.out.println("SceneManager.call(next_scene)");
-        // else loginFailed.showAndWait();
+        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
+        if (check()) {
+            DataManager.init(getDatabase());
+            if (DataManager.login(getName(), getPassword())) SceneManager.call("navigator");
+            else loginFailed.showAndWait();
+        }
     }
 
     @FXML void register() {
-        System.out.println(getClass().getName() + "#register();");
-        // DataManager.init(textFieldDatabase.getText());
-        // if (textFieldUsername.getText().isEmpty()) emptyError.showAndWait();
-        // else if (DataManager.regist(getUser()))
-        // System.out.println("SceneManager.call(next_scene)");
-        // else registFailed.showAndWait();
+        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
+        if (check()) {
+            DataManager.init(getDatabase());
+            if (DataManager.regist(getName(), getPassword())) {
+                textFieldPassword.clear();
+                registSuccess.showAndWait();
+            } else registFailed.showAndWait();
+        }
     }
 }

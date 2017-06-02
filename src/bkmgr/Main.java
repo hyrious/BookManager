@@ -7,6 +7,7 @@ public class Main extends Application {
     @Override public void start(Stage window) {
         window.setTitle("图书管理系统");
         SceneManager.set("login", new SceneLogin(getClass().getResource("UILogin.fxml")));
+        SceneManager.set("navigator", new SceneLogin(getClass().getResource("UINavigator.fxml")));
         SceneManager.start(window, "login");
     }
 

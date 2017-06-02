@@ -1,2 +1,2 @@
 package bkmgr;
-public class ControllerBorrow {}
+public class ControllerBorrow extends ControllerBase {}

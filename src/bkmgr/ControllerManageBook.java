@@ -1,2 +1,2 @@
 package bkmgr;
-public class ControllerManageBook {}
+public class ControllerManageBook extends ControllerBase {}

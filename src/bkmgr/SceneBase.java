@@ -23,4 +23,8 @@ public @Data abstract class SceneBase {
     public <T> T _getController() {
         return loader.<T>getController();
     }
+
+    public void initController() {
+        loader.<ControllerBase>getController().init();
+    }
 }

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import org.sqlite.SQLiteConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,13 +71,9 @@ public final class DataManager {
             int paramSize = params.length;
             for (int i = 1; i <= paramSize; i++) {
                 Object param = params[i - 1];
-                if (param instanceof java.lang.Integer) {
-                    statement.setInt(i, (Integer) param);
-                } else if (param instanceof java.lang.Boolean) {
-                    statement.setInt(i, (boolean) param ? 1 : 0);
-                } else if (param instanceof java.lang.String) {
-                    statement.setString(i, (String) param);
-                }
+                if (param instanceof Integer) statement.setInt(i, (Integer) param);
+                else if (param instanceof String) statement.setString(i, (String) param);
+                else if (param instanceof Date) statement.setString(i, ((Date) param).toString());
             }
             return statement;
         }
@@ -190,8 +187,8 @@ public final class DataManager {
         private static boolean existsFlag = false;
 
         public static boolean exists(String sql, Object... params) {
+            existsFlag = false;
             select(sql, r -> {
-                existsFlag = false;
                 try {
                     existsFlag = r.isBeforeFirst();
                 } catch (SQLException e) {}
@@ -224,10 +221,10 @@ public final class DataManager {
         return SQLHelper.exists(sql, params);
     }
 
-    public static String               file      = null;
-    public static User                 user      = null;
-    public static ObservableList<User> all_users = FXCollections.observableArrayList();
-    public static ObservableList<Book> all_books = FXCollections.observableArrayList();
+    public static String               file  = null;
+    public static User                 user  = null;
+    public static ObservableList<Book> books = FXCollections.observableArrayList();
+    public static ObservableList<Book> users = FXCollections.observableArrayList();
 
     public static void init() {
         batch("create table if not exists book ( id integer primary key, title text not null, owner    integer default 1 )",
@@ -241,15 +238,46 @@ public final class DataManager {
             insertInto("user ( name, password, permission ) values ( ?, ?, ? )", "sa", encrypt("sa"), 6);
     }
 
+    public static void init(String database) {
+        file = database;
+        init();
+    }
+
+    private static boolean loginFlag = false;
+
+    public static boolean login(String name, String plain_password) {
+        loginFlag = false;
+        String password = encrypt(plain_password);
+        select("select id, permission from user where name = ? and password = ?", r -> {
+            try {
+                if (r.next()) {
+                    DataManager.user = new User(r.getInt("id"), name, password, r.getInt("permission"));
+                    loginFlag = true;
+                }
+            } catch (SQLException e) {}
+        }, name, password);
+        return loginFlag;
+    }
+
+    public static boolean regist(String name, String plain_password) {
+        if (exists("select * from user where name = ?", name)) return false;
+        insertInto("user (name, password) values ( ?, ? )", name, encrypt(plain_password));
+        return true;
+    }
+
     public static void main(String[] args) {
         file = "library.db";
         init();
-        select("select name from user", r -> {
-            try {
-                while (r.next())
-                    System.out.println(r.getString("name"));
-            } catch (SQLException e) {}
-        });
+        // insertInto("book (title) values ( ? )", "LOVE");
+        // insertInto("borrow (book_id, user_id, due) values ( ?, ?, ? )", 1, 1,
+        // "2017-06-01");
+        // select("select due from borrow", r -> {
+        // try {
+        // while (r.next())
+        // System.out.println(r.getString("due"));
+        // } catch (SQLException sqle) {}
+        // });
+        System.out.println(new Date().toString());
         /** Test
          * 
          * <pre>

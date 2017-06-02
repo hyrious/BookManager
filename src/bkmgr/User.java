@@ -22,6 +22,14 @@ public class User {
         this.canManageUser.set(canManageUser);
     }
 
+    public User(final int id, final String name, final String password, int permission) {
+        this(id, name, password, (permission & 1) == 1, (permission & 2) == 2, (permission & 4) == 4);
+    }
+
+    public final int getPermission() {
+        return (canBorrow.get() ? 1 : 0) | (canManageBook.get() ? 2 : 0) | (canManageUser.get() ? 4 : 0);
+    }
+
     // 我跟你讲，这页代码全是用下面六行生成出来的
     public SimpleIntegerProperty id            = new SimpleIntegerProperty(1);
     public SimpleStringProperty  name          = new SimpleStringProperty();

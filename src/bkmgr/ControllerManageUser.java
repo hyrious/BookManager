@@ -1,2 +1,2 @@
 package bkmgr;
-public class ControllerManageUser {}
+public class ControllerManageUser extends ControllerBase {}
