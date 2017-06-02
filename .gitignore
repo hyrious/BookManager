@@ -1,8 +1,8 @@
 # Custom
 *.db
 
-# Compiled class file
-*.class
+# Compiled files
+bin/
 
 # Log file
 *.log
