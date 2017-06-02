@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bkmgr.ControllerNavigator">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bkmgr.controller.ControllerNavigator">
    <top>
       <Label fx:id="labelUsername" text="&lt;用户名&gt;" BorderPane.alignment="CENTER">
          <font>
@@ -55,7 +55,7 @@
       </GridPane>
    </center>
    <bottom>
-      <Button defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" text="注销登录" BorderPane.alignment="CENTER">
+      <Button defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" text="注销" BorderPane.alignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bkmgr.controller.ControllerBorrow">
+   <center>
+      <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab closable="false" text="书库">
+               <content>
+                  <BorderPane>
+                     <center>
+                        <TableView fx:id="tableLibrary" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="tableColumnLibraryTitle" editable="false" prefWidth="256.0" text="书名" />
+                            <TableColumn fx:id="tableColumnLibraryCount" editable="false" text="剩余数量" />
+                          </columns>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </TableView>
+                     </center>
+                     <bottom>
+                        <Button defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#borrow" text="借阅" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets top="8.0" />
+                           </BorderPane.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </bottom>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </BorderPane>
+               </content>
+            </Tab>
+          <Tab closable="false" text="我的">
+               <content>
+                  <BorderPane>
+                     <center>
+                        <TableView fx:id="tableMine" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="tableColumnMineTitle" editable="false" prefWidth="256.0" text="书名" />
+                            <TableColumn fx:id="tableColumnMineDue" editable="false" text="到期时间" />
+                          </columns>
+                        </TableView>
+                     </center>
+                     <bottom>
+                        <Button defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ret" text="还书" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets top="8.0" />
+                           </BorderPane.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </bottom>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </BorderPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <Button cancelButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#back" text="返回" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </top>
+</BorderPane>
