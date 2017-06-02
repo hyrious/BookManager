@@ -1,6 +1,7 @@
-package bkmgr.scene;
+package bkmgr;
 
 import java.util.HashMap;
+import bkmgr.scene.SceneBase;
 import javafx.stage.Stage;
 
 public final class SceneManager {

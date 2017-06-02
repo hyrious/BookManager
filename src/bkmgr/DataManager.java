@@ -213,8 +213,8 @@ public final class DataManager {
     public static void init() {
         batch("create table if not exists book ( id integer primary key, title text not null, owner    integer default 1 )",
               "create table if not exists user ( id integer primary key, name  text not null, password text not null, permission integer default 1 )",
-              "create table if not exists borrow ( user_id integer, book_id integer, due text, primary key(user_id, book_id), foreign key(user_id) references user(id), foreign key(book_id) references book(id) )",
-              "create table if not exists return ( user_id integer, book_id integer, ret text, foreign key(user_id) references user(id), foreign key(book_id) references book(id) )",
+              "create table if not exists borrow ( user_id integer, book_id integer, due text, primary key(user_id, book_id) )",
+              "create table if not exists return ( user_id integer, book_id integer, ret text )",
               "create view if not exists view_borrow as select user_id, book_id, title, name, due from borrow join book on borrow.book_id = book.id join user on borrow.user_id = user.id",
               "create view if not exists view_return as select user_id, book_id, title, name, ret from return join book on return.book_id = book.id join user on return.user_id = user.id",
               "create view if not exists view_book as select book.id as book_id, user.id as user_id, title, name from book join user on book.owner = user.id");
@@ -286,5 +286,14 @@ public final class DataManager {
         deleteFrom("borrow where book_id = ?", book_id);
         insertInto("return (user_id, book_id, ret) values ( ?, ?, date('now') )", user.getId(), book_id);
         return true;
+    }
+    public static void changePassword(String new_password) {
+        update("update user set password = ? where id = ?", encrypt(new_password), user.getId());
+    }
+    public static void addOneBook(String title) {
+        insertInto("book (title) values ( ? )", title);
+    }
+    public static void deleteOneBook(Integer book_id) {
+        deleteFrom("book where id = ?", book_id);
     }
 }

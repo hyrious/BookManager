@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import lombok.Data;
 
-abstract @Data class SceneBase {
+public abstract @Data class SceneBase {
     private Scene          scene;
     private ControllerBase controller;
 

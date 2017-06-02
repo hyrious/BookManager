@@ -1,7 +1,7 @@
 package bkmgr.controller;
 
 import bkmgr.DataManager;
-import bkmgr.scene.SceneManager;
+import bkmgr.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

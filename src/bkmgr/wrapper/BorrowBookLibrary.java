@@ -1,4 +1,4 @@
-package bkmgr.borrow;
+package bkmgr.wrapper;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

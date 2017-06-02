@@ -1,7 +1,7 @@
 package bkmgr.controller;
 
 import bkmgr.DataManager;
-import bkmgr.scene.SceneManager;
+import bkmgr.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,6 +31,7 @@ public class ControllerNavigator extends ControllerBase {
     }
     @FXML void manageBook() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
+        SceneManager.call("manageBook");
     }
     @FXML void manageUser() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());

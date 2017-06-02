@@ -2,9 +2,9 @@ package bkmgr.controller;
 
 import java.sql.SQLException;
 import bkmgr.DataManager;
-import bkmgr.borrow.BorrowBookLibrary;
-import bkmgr.borrow.BorrowBookMine;
-import bkmgr.scene.SceneManager;
+import bkmgr.SceneManager;
+import bkmgr.wrapper.BorrowBookLibrary;
+import bkmgr.wrapper.BorrowBookMine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
