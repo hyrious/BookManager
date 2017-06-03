@@ -52,6 +52,7 @@ public class ControllerPersonalInfo extends ControllerBase {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         DataManager.changeUserName(textFieldNewName.getText());
         init();
+        SceneManager.window.setTitle(DataManager.user.getName() + " - 图书管理系统");
         changeUserNameSuccess.showAndWait();
     }
 }
