@@ -4,7 +4,7 @@ import java.util.HashMap;
 import javafx.stage.Stage;
 
 public final class SceneManager {
-    public static Stage                      window;
+    public static Stage                         window;
     public static HashMap<String, SceneWrapper> hash = new HashMap<String, SceneWrapper>();
 
     public static void set(String id, SceneWrapper scene) {

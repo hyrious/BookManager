@@ -218,8 +218,8 @@ public final class DataManager {
               "create view if not exists view_borrow as select user_id, book_id, title, name, due from borrow join book on borrow.book_id = book.id join user on borrow.user_id = user.id",
               "create view if not exists view_return as select user_id, book_id, title, name, ret from return join book on return.book_id = book.id join user on return.user_id = user.id",
               "create view if not exists view_book as select book.id as book_id, user.id as user_id, title, name from book join user on book.owner = user.id");
-        if (!exists("select * from user where name = 'sa'"))
-            insertInto("user ( name, password, permission ) values ( ?, ?, ? )", "sa", encrypt("sa"), 6);
+        if (!exists("select * from user where id = 1"))
+            insertInto("user ( id, name, password, permission ) values ( 1, ?, ?, ? )", "sa", encrypt("sa"), 6);
     }
     public static void init(String database) {
         file = database;
@@ -287,6 +287,10 @@ public final class DataManager {
         insertInto("return (user_id, book_id, ret) values ( ?, ?, date('now') )", user.getId(), book_id);
         return true;
     }
+    public static void changeUserName(String new_name) {
+        update("update user set name = ? where id = ?", new_name, user.getId());
+        user.setName(new_name);
+    }
     public static void changePassword(String new_password) {
         String password = encrypt(new_password);
         update("update user set password = ? where id = ?", password, user.getId());
@@ -297,5 +301,31 @@ public final class DataManager {
     }
     public static void deleteOneBook(Integer book_id) {
         deleteFrom("book where id = ?", book_id);
+    }
+    public static void deleteUser(Integer user_id) {
+        update("update book set owner = 1 where owner = ?", user_id);
+        deleteFrom("borrow where user_id = ?", user_id);
+        deleteFrom("user where id = ?", user_id);
+    }
+
+    public static Integer forceChangePasswordUserID   = null;
+    public static String  forceChangePasswordUserName = null;
+
+    public static void forceChangePassword(String new_password) {
+        if (forceChangePasswordUserID != null) {
+            String password = encrypt(new_password);
+            update("update user set password = ? where id = ?", password, forceChangePasswordUserID);
+        }
+    }
+
+    public static Integer modifyPermissionUserID            = null;
+    public static String  modifyPermissionUserName          = null;
+    public static Boolean modifyPermissionUserCanBorrow     = null;
+    public static Boolean modifyPermissionUserCanManageBook = null;
+    public static Boolean modifyPermissionUserCanManageUser = null;
+
+    public static void modifyPermission(Integer permission) {
+        if (modifyPermissionUserID != null)
+            update("update user set permission = ? where id = ?", permission, modifyPermissionUserID);
     }
 }

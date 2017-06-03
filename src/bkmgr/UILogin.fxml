@@ -48,7 +48,7 @@
                   <Font size="14.0" />
                </font>
            </Label>
-           <TextField fx:id="textFieldDatabase" text="library.db" GridPane.columnIndex="1">
+           <TextField fx:id="textFieldDatabase" promptText="library.db" GridPane.columnIndex="1">
                <font>
                   <Font size="14.0" />
                </font>

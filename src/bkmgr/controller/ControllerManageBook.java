@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControllerManageBook extends ControllerBase {
-    @FXML private TextField                              textFieldBookTitle;
+    @FXML private TextField                           textFieldBookTitle;
     @FXML private TableView<ManageBookData>           tableBooks;
     @FXML private TableColumn<ManageBookData, String> tableColumnBookTitle;
     @FXML private TableColumn<ManageBookData, String> tableColumnBookOwner;
@@ -64,6 +64,8 @@ public class ControllerManageBook extends ControllerBase {
         }
     }
     @FXML void updateTextField() {
-        textFieldBookTitle.setText(tableBooks.getSelectionModel().getSelectedItem().getTitle());
+        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
+        ManageBookData bookData = tableBooks.getSelectionModel().getSelectedItem();
+        if (bookData != null) textFieldBookTitle.setText(bookData.getTitle());
     }
 }

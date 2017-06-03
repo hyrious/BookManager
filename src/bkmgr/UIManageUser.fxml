@@ -22,12 +22,12 @@
    <center>
       <TableView fx:id="tableUsers" onKeyReleased="#updateControlBar" onMouseReleased="#updateControlBar" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="tableColumnUserName" prefWidth="116.0" text="用户名" />
+          <TableColumn fx:id="tableColumnUserName" editable="false" prefWidth="116.0" text="用户名" />
             <TableColumn text="权限">
                <columns>
-                <TableColumn fx:id="tableColumnCanBorrow" text="借书还书" />
-                  <TableColumn fx:id="tableColumnCanManageBook" text="管理图书" />
-                  <TableColumn fx:id="tableColumnCanManageUser" text="管理用户" />
+                <TableColumn fx:id="tableColumnCanBorrow" editable="false" text="借书还书" />
+                  <TableColumn fx:id="tableColumnCanManageBook" editable="false" text="管理图书" />
+                  <TableColumn fx:id="tableColumnCanManageUser" editable="false" text="管理用户" />
                </columns>
             </TableColumn>
         </columns>

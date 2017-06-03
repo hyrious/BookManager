@@ -15,7 +15,8 @@ public class Main extends Application {
             register(id);
     }
     @Override public void start(Stage window) {
-        register("Login", "Navigator", "Borrow", "ChangePassword", "ManageBook", "ManageUser");
+        register("Login", "Navigator", "Borrow", "PersonalInfo", "ManageBook", "ManageUser", "ChangePassword",
+                 "ModifyPermission");
         SceneManager.start(window, "login");
     }
     public static void main(String[] args) {

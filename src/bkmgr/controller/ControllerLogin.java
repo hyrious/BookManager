@@ -14,7 +14,8 @@ public class ControllerLogin extends ControllerBase {
     @FXML private PasswordField textFieldPassword;
 
     private String getDatabase() {
-        return textFieldDatabase.getText();
+        String text = textFieldDatabase.getText();
+        return text.isEmpty() ? textFieldDatabase.getPromptText() : text;
     }
     private String getName() {
         return textFieldUsername.getText();
@@ -26,6 +27,7 @@ public class ControllerLogin extends ControllerBase {
         super.init();
         SceneManager.window.setTitle("图书管理系统");
         textFieldPassword.clear();
+        textFieldUsername.requestFocus();
     }
 
     private Alert loginFailed   = new Alert(AlertType.ERROR);

@@ -25,9 +25,9 @@ public class ControllerNavigator extends ControllerBase {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("borrow");
     }
-    @FXML void changePassword() {
+    @FXML void personalInfo() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
-        SceneManager.call("changePassword");
+        SceneManager.call("personalInfo");
     }
     @FXML void manageBook() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
