@@ -3,7 +3,7 @@ package bkmgr.controller;
 import java.sql.SQLException;
 import bkmgr.DataManager;
 import bkmgr.SceneManager;
-import bkmgr.wrapper.ManageBookLibrary;
+import bkmgr.wrapper.ManageBookData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,14 +14,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControllerManageBook extends ControllerBase {
     @FXML private TextField                              textFieldBookTitle;
-    @FXML private TableView<ManageBookLibrary>           tableBooks;
-    @FXML private TableColumn<ManageBookLibrary, String> tableColumnBookTitle;
-    @FXML private TableColumn<ManageBookLibrary, String> tableColumnBookOwner;
-    private ObservableList<ManageBookLibrary>            books = FXCollections.observableArrayList();
+    @FXML private TableView<ManageBookData>           tableBooks;
+    @FXML private TableColumn<ManageBookData, String> tableColumnBookTitle;
+    @FXML private TableColumn<ManageBookData, String> tableColumnBookOwner;
+    private ObservableList<ManageBookData>            books = FXCollections.observableArrayList();
 
     @FXML void initialize() {
-        tableColumnBookTitle.setCellValueFactory(new PropertyValueFactory<ManageBookLibrary, String>("title"));
-        tableColumnBookOwner.setCellValueFactory(new PropertyValueFactory<ManageBookLibrary, String>("owner"));
+        tableColumnBookTitle.setCellValueFactory(new PropertyValueFactory<ManageBookData, String>("title"));
+        tableColumnBookOwner.setCellValueFactory(new PropertyValueFactory<ManageBookData, String>("owner"));
     }
 
     private Integer maxBookID = null;
@@ -34,13 +34,13 @@ public class ControllerManageBook extends ControllerBase {
                 while (r.next()) {
                     Integer book_id = r.getInt("book_id");
                     maxBookID = Math.max(maxBookID, book_id);
-                    books.add(new ManageBookLibrary(book_id, r.getString("title"), r.getString("name")));
+                    books.add(new ManageBookData(book_id, r.getString("title"), r.getString("name")));
                 }
             } catch (SQLException e) {}
         });
         tableBooks.setItems(books);
     }
-    public void init() {
+    @Override public void init() {
         super.init();
         loadBooks();
     }
@@ -52,12 +52,12 @@ public class ControllerManageBook extends ControllerBase {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         if (!textFieldBookTitle.getText().isEmpty()) {
             DataManager.addOneBook(textFieldBookTitle.getText());
-            books.add(new ManageBookLibrary(maxBookID += 1, textFieldBookTitle.getText(), "sa"));
+            books.add(new ManageBookData(maxBookID += 1, textFieldBookTitle.getText(), "sa"));
         }
     }
     @FXML void deleteOne() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
-        ManageBookLibrary book = tableBooks.getSelectionModel().getSelectedItem();
+        ManageBookData book = tableBooks.getSelectionModel().getSelectedItem();
         if (book != null) {
             DataManager.deleteOneBook(book.getId());
             books.remove(book);

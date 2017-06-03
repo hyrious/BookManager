@@ -288,7 +288,9 @@ public final class DataManager {
         return true;
     }
     public static void changePassword(String new_password) {
-        update("update user set password = ? where id = ?", encrypt(new_password), user.getId());
+        String password = encrypt(new_password);
+        update("update user set password = ? where id = ?", password, user.getId());
+        user.setPassword(password);
     }
     public static void addOneBook(String title) {
         insertInto("book (title) values ( ? )", title);

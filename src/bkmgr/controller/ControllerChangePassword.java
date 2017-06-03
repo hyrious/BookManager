@@ -9,6 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class ControllerChangePassword extends ControllerBase {
     private Alert changeFailed = new Alert(AlertType.ERROR);
+    private Alert changeSuccess = new Alert(AlertType.INFORMATION);
 
     private void set(Alert x, String title, String content) {
         x.setTitle(title);
@@ -17,12 +18,14 @@ public class ControllerChangePassword extends ControllerBase {
     }
     @FXML void initialize() {
         set(changeFailed, "修改密码失败", "原密码不正确。");
+        set(changeSuccess, "修改密码成功", "修改密码成功。");
     }
 
     @FXML private PasswordField originalPassword;
     @FXML private PasswordField newPassword;
 
-    public void init() {
+    @Override public void init() {
+        super.init();
         originalPassword.clear();
         newPassword.clear();
     }
@@ -32,8 +35,10 @@ public class ControllerChangePassword extends ControllerBase {
     }
     @FXML void changePassword() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
-        if (DataManager.encrypt(originalPassword.getText()).equals(DataManager.user.getPassword()))
+        if (DataManager.encrypt(originalPassword.getText()).equals(DataManager.user.getPassword())) {
             DataManager.changePassword(newPassword.getText());
-        else changeFailed.showAndWait();
+            init();
+            changeSuccess.showAndWait();
+        } else changeFailed.showAndWait();
     }
 }

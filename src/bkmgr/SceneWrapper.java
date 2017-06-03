@@ -1,4 +1,4 @@
-package bkmgr.scene;
+package bkmgr;
 
 import java.io.IOException;
 import java.net.URL;
@@ -7,11 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import lombok.Data;
 
-public abstract @Data class SceneBase {
+public @Data class SceneWrapper {
     private Scene          scene;
     private ControllerBase controller;
 
-    public SceneBase(URL resource) {
+    public SceneWrapper(URL resource) {
         FXMLLoader loader = new FXMLLoader(resource);
         try {
             scene = new Scene(loader.load());

@@ -48,7 +48,7 @@ public class ControllerBorrow extends ControllerBase {
         }, DataManager.user.getId());
         tableMine.setItems(myBooks);
     }
-    public void init() {
+    @Override public void init() {
         super.init();
         loadLibraryBooks();
         loadMyBooks();

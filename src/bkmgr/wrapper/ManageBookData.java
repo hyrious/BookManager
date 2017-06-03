@@ -3,8 +3,8 @@ package bkmgr.wrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class ManageBookLibrary {
-    public ManageBookLibrary(final Integer id, final String title, final String owner) {
+public class ManageBookData {
+    public ManageBookData(final Integer id, final String title, final String owner) {
         super();
         this.id.set(id);
         this.title.set(title);

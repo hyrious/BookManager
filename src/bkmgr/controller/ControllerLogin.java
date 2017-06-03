@@ -22,7 +22,7 @@ public class ControllerLogin extends ControllerBase {
     private String getPassword() {
         return textFieldPassword.getText();
     }
-    public void init() {
+    @Override public void init() {
         super.init();
         SceneManager.window.setTitle("图书管理系统");
         textFieldPassword.clear();

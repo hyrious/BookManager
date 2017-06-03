@@ -13,7 +13,7 @@ public class ControllerNavigator extends ControllerBase {
     @FXML private Button buttonManageUser;
     @FXML private Button buttonChangePassword;
 
-    public void init() {
+    @Override public void init() {
         super.init();
         SceneManager.window.setTitle(DataManager.user.getName() + " - 图书管理系统");
         labelUsername.setText(DataManager.user.getName());
@@ -35,6 +35,7 @@ public class ControllerNavigator extends ControllerBase {
     }
     @FXML void manageUser() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
+        SceneManager.call("manageUser");
     }
     @FXML void logout() {
         System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());

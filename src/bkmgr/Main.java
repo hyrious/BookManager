@@ -1,8 +1,5 @@
 package bkmgr;
 
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import bkmgr.scene.SceneBase;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,21 +8,14 @@ public class Main extends Application {
         return Character.toLowerCase(line.charAt(0)) + line.substring(1);
     }
     private void register(final String id) {
-        try {
-            SceneManager.set(camelize(id), (SceneBase) Class.forName("bkmgr.scene.Scene" + id).getConstructor(URL.class)
-                    .newInstance(getClass().getResource("UI" + id + ".fxml")));
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                 | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-            System.err.println("What happened when register \"" + id + "\" ?");
-            e.printStackTrace();
-        }
+        SceneManager.set(camelize(id), new SceneWrapper(getClass().getResource("UI" + id + ".fxml")));
     }
     private void register(final String... ids) {
         for (String id : ids)
             register(id);
     }
     @Override public void start(Stage window) {
-        register("Login", "Navigator", "Borrow", "ChangePassword", "ManageBook");
+        register("Login", "Navigator", "Borrow", "ChangePassword", "ManageBook", "ManageUser");
         SceneManager.start(window, "login");
     }
     public static void main(String[] args) {
