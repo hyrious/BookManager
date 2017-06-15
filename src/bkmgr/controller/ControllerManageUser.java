@@ -20,6 +20,7 @@ import javafx.scene.layout.GridPane;
 public class ControllerManageUser extends ControllerBase {
     private Alert deleteConfirmation = new Alert(AlertType.CONFIRMATION);
     private Alert cantModifySelf     = new Alert(AlertType.ERROR);
+    private Alert cantDeleteSelf     = new Alert(AlertType.ERROR);
 
     private void set(Alert x, String title, String content) {
         x.setTitle(title);
@@ -39,6 +40,7 @@ public class ControllerManageUser extends ControllerBase {
     @FXML void initialize() {
         set(deleteConfirmation, "确认删除", "确定删除该用户？此操作不可恢复。");
         set(cantModifySelf, "反身禁止", "不可以修改自己的权限。");
+        set(cantDeleteSelf, "反身禁止", "不可以删除自己。");
         tableColumnCanBorrow.setCellFactory(CheckBoxTableCell.forTableColumn(tableColumnCanBorrow));
         tableColumnCanManageBook.setCellFactory(CheckBoxTableCell.forTableColumn(tableColumnCanManageBook));
         tableColumnCanManageUser.setCellFactory(CheckBoxTableCell.forTableColumn(tableColumnCanManageUser));
@@ -74,7 +76,12 @@ public class ControllerManageUser extends ControllerBase {
     }
     @FXML void deleteUser() {
         ManageUserData userData = tableUsers.getSelectionModel().getSelectedItem();
-        if (userData != null && deleteConfirmation.showAndWait().get().getButtonData() == ButtonData.OK_DONE) {
+        if (userData == null) return;
+        if (userData.getId() == DataManager.user.getId()) {
+            cantDeleteSelf.showAndWait();
+            return;
+        }
+        if (deleteConfirmation.showAndWait().get().getButtonData() == ButtonData.OK_DONE) {
             DataManager.deleteUser(userData.getId());
             users.remove(userData);
         }
