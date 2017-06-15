@@ -12,14 +12,13 @@ public class ControllerModifyPermission extends ControllerBase {
     @FXML private ToggleButton buttonManageUser;
     @FXML private Label        labelUserName;
 
-    public void init() {
+    @Override public void init() {
         labelUserName.setText(DataManager.modifyPermissionUserName);
         buttonBorrow.setSelected(DataManager.modifyPermissionUserCanBorrow);
         buttonManageBook.setSelected(DataManager.modifyPermissionUserCanManageBook);
         buttonManageUser.setSelected(DataManager.modifyPermissionUserCanManageUser);
     }
     @FXML void back() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("manageUser");
     }
     @FXML void confirm() {

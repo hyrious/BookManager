@@ -54,7 +54,6 @@ public class ControllerLogin extends ControllerBase {
         return true;
     }
     @FXML void login() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         if (check()) {
             DataManager.init(getDatabase());
             if (DataManager.login(getName(), getPassword())) SceneManager.call("navigator");
@@ -62,7 +61,6 @@ public class ControllerLogin extends ControllerBase {
         }
     }
     @FXML void register() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         if (check()) {
             DataManager.init(getDatabase());
             if (DataManager.regist(getName(), getPassword())) {

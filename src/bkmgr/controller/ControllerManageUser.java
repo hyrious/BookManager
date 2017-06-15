@@ -66,7 +66,6 @@ public class ControllerManageUser extends ControllerBase {
         updateControlBar();
     }
     @FXML void changePassword() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         ManageUserData userData = tableUsers.getSelectionModel().getSelectedItem();
         if (userData == null) return;
         DataManager.forceChangePasswordUserID = userData.getId();
@@ -74,7 +73,6 @@ public class ControllerManageUser extends ControllerBase {
         SceneManager.call("changePassword");
     }
     @FXML void deleteUser() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         ManageUserData userData = tableUsers.getSelectionModel().getSelectedItem();
         if (userData != null && deleteConfirmation.showAndWait().get().getButtonData() == ButtonData.OK_DONE) {
             DataManager.deleteUser(userData.getId());
@@ -82,7 +80,6 @@ public class ControllerManageUser extends ControllerBase {
         }
     }
     @FXML void modifyPermission() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         ManageUserData userData = tableUsers.getSelectionModel().getSelectedItem();
         if (userData == null) return;
         if (userData.getId() == DataManager.user.getId()) {
@@ -97,7 +94,6 @@ public class ControllerManageUser extends ControllerBase {
         SceneManager.call("modifyPermission");
     }
     @FXML void updateControlBar() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         ManageUserData userData = tableUsers.getSelectionModel().getSelectedItem();
         if (userData != null) {
             gridControlBar.setDisable(false);
@@ -108,7 +104,6 @@ public class ControllerManageUser extends ControllerBase {
         }
     }
     @FXML void back() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("navigator");
     }
 }

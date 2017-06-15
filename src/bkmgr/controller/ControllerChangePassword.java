@@ -29,12 +29,10 @@ public class ControllerChangePassword extends ControllerBase {
         passwordField.clear();
     }
     @FXML void changePassword() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         DataManager.forceChangePassword(passwordField.getText());
         changeSuccess.showAndWait();
     }
     @FXML void back() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("manageUser");
     }
 }

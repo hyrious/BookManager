@@ -54,7 +54,6 @@ public class ControllerBorrow extends ControllerBase {
         loadMyBooks();
     }
     @FXML void borrow() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         BorrowBookLibrary books = tableLibrary.getSelectionModel().getSelectedItem();
         if (books != null && DataManager.borrow(books.getTitle())) {
             books.setCount(books.getCount() - 1);
@@ -64,7 +63,6 @@ public class ControllerBorrow extends ControllerBase {
         }
     }
     @FXML void ret() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         BorrowBookMine book = tableMine.getSelectionModel().getSelectedItem();
         if (book != null && DataManager.ret(book.getId())) {
             boolean notContainsFlag = true;
@@ -79,7 +77,6 @@ public class ControllerBorrow extends ControllerBase {
         }
     }
     @FXML void back() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("navigator");
     }
 }

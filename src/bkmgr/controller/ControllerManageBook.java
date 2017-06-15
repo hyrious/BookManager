@@ -45,18 +45,15 @@ public class ControllerManageBook extends ControllerBase {
         loadBooks();
     }
     @FXML void back() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("navigator");
     }
     @FXML void addOne() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         if (!textFieldBookTitle.getText().isEmpty()) {
             DataManager.addOneBook(textFieldBookTitle.getText());
             books.add(new ManageBookData(maxBookID += 1, textFieldBookTitle.getText(), "sa"));
         }
     }
     @FXML void deleteOne() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         ManageBookData book = tableBooks.getSelectionModel().getSelectedItem();
         if (book != null) {
             DataManager.deleteOneBook(book.getId());
@@ -64,7 +61,6 @@ public class ControllerManageBook extends ControllerBase {
         }
     }
     @FXML void updateTextField() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         ManageBookData bookData = tableBooks.getSelectionModel().getSelectedItem();
         if (bookData != null) textFieldBookTitle.setText(bookData.getTitle());
     }

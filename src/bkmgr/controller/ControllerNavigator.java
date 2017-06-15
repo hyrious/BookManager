@@ -17,28 +17,23 @@ public class ControllerNavigator extends ControllerBase {
         super.init();
         SceneManager.window.setTitle(DataManager.user.getName() + " - 图书管理系统");
         labelUsername.setText(DataManager.user.getName());
-        buttonBorrow.setDisable(!DataManager.user.isCanBorrow());
-        buttonManageBook.setDisable(!DataManager.user.isCanManageBook());
-        buttonManageUser.setDisable(!DataManager.user.isCanManageUser());
+        buttonBorrow.setDisable(!DataManager.user.getCanBorrow());
+        buttonManageBook.setDisable(!DataManager.user.getCanManageBook());
+        buttonManageUser.setDisable(!DataManager.user.getCanManageUser());
     }
     @FXML void borrow() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("borrow");
     }
     @FXML void personalInfo() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("personalInfo");
     }
     @FXML void manageBook() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("manageBook");
     }
     @FXML void manageUser() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("manageUser");
     }
     @FXML void logout() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("login");
     }
 }

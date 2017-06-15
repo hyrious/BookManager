@@ -37,11 +37,9 @@ public class ControllerPersonalInfo extends ControllerBase {
         newPassword.clear();
     }
     @FXML void back() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         SceneManager.call("navigator");
     }
     @FXML void changePassword() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         if (DataManager.encrypt(originalPassword.getText()).equals(DataManager.user.getPassword())) {
             DataManager.changePassword(newPassword.getText());
             init();
@@ -49,7 +47,6 @@ public class ControllerPersonalInfo extends ControllerBase {
         } else changePasswordFailed.showAndWait();
     }
     @FXML void changeUserName() {
-        System.out.println(getClass().getName() + '#' + Thread.currentThread().getStackTrace()[1].getMethodName());
         DataManager.changeUserName(textFieldNewName.getText());
         init();
         SceneManager.window.setTitle(DataManager.user.getName() + " - 图书管理系统");
