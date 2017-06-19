@@ -13,19 +13,36 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControllerManageBook extends ControllerBase {
-    @FXML private TextField                           textFieldBookTitle;
+    private ObservableList<ManageBookData>            books     = FXCollections.observableArrayList();
+    private Integer                                   maxBookID = null;
     @FXML private TableView<ManageBookData>           tableBooks;
-    @FXML private TableColumn<ManageBookData, String> tableColumnBookTitle;
     @FXML private TableColumn<ManageBookData, String> tableColumnBookOwner;
-    private ObservableList<ManageBookData>            books = FXCollections.observableArrayList();
-
+    @FXML private TableColumn<ManageBookData, String> tableColumnBookTitle;
+    @FXML private TextField                           textFieldBookTitle;
+    @FXML void addOne() {
+        if (!textFieldBookTitle.getText().isEmpty()) {
+            DataManager.addOneBook(textFieldBookTitle.getText());
+            books.add(new ManageBookData(maxBookID += 1, textFieldBookTitle.getText(), "sa"));
+        }
+    }
+    @FXML void back() {
+        SceneManager.call("navigator");
+    }
+    @FXML void deleteOne() {
+        ManageBookData book = tableBooks.getSelectionModel().getSelectedItem();
+        if (book != null) {
+            DataManager.deleteOneBook(book.getId());
+            books.remove(book);
+        }
+    }
+    @Override public void init() {
+        super.init();
+        loadBooks();
+    }
     @FXML void initialize() {
         tableColumnBookTitle.setCellValueFactory(new PropertyValueFactory<ManageBookData, String>("title"));
         tableColumnBookOwner.setCellValueFactory(new PropertyValueFactory<ManageBookData, String>("owner"));
     }
-
-    private Integer maxBookID = null;
-
     public void loadBooks() {
         maxBookID = 0;
         books.clear();
@@ -39,26 +56,6 @@ public class ControllerManageBook extends ControllerBase {
             } catch (SQLException e) {}
         });
         tableBooks.setItems(books);
-    }
-    @Override public void init() {
-        super.init();
-        loadBooks();
-    }
-    @FXML void back() {
-        SceneManager.call("navigator");
-    }
-    @FXML void addOne() {
-        if (!textFieldBookTitle.getText().isEmpty()) {
-            DataManager.addOneBook(textFieldBookTitle.getText());
-            books.add(new ManageBookData(maxBookID += 1, textFieldBookTitle.getText(), "sa"));
-        }
-    }
-    @FXML void deleteOne() {
-        ManageBookData book = tableBooks.getSelectionModel().getSelectedItem();
-        if (book != null) {
-            DataManager.deleteOneBook(book.getId());
-            books.remove(book);
-        }
     }
     @FXML void updateTextField() {
         ManageBookData bookData = tableBooks.getSelectionModel().getSelectedItem();

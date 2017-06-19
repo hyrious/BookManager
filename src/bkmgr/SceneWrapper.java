@@ -8,9 +8,8 @@ import javafx.scene.Scene;
 import lombok.Data;
 
 public @Data class SceneWrapper {
-    private Scene          scene;
     private ControllerBase controller;
-
+    private Scene          scene;
     public SceneWrapper(URL resource) {
         FXMLLoader loader = new FXMLLoader(resource);
         try {

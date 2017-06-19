@@ -13,15 +13,31 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControllerBorrow extends ControllerBase {
-    @FXML private TableView<BorrowBookLibrary>            tableLibrary;
-    @FXML private TableView<BorrowBookMine>               tableMine;
-    @FXML private TableColumn<BorrowBookLibrary, String>  tableColumnLibraryTitle;
-    @FXML private TableColumn<BorrowBookLibrary, Integer> tableColumnLibraryCount;
-    @FXML private TableColumn<BorrowBookMine, String>     tableColumnMineTitle;
-    @FXML private TableColumn<BorrowBookMine, String>     tableColumnMineDue;
     private ObservableList<BorrowBookLibrary>             libraryBooks = FXCollections.observableArrayList();
     private ObservableList<BorrowBookMine>                myBooks      = FXCollections.observableArrayList();
-
+    @FXML private TableColumn<BorrowBookLibrary, Integer> tableColumnLibraryCount;
+    @FXML private TableColumn<BorrowBookLibrary, String>  tableColumnLibraryTitle;
+    @FXML private TableColumn<BorrowBookMine, String>     tableColumnMineDue;
+    @FXML private TableColumn<BorrowBookMine, String>     tableColumnMineTitle;
+    @FXML private TableView<BorrowBookLibrary>            tableLibrary;
+    @FXML private TableView<BorrowBookMine>               tableMine;
+    @FXML void back() {
+        SceneManager.call("navigator");
+    }
+    @FXML void borrow() {
+        BorrowBookLibrary books = tableLibrary.getSelectionModel().getSelectedItem();
+        if (books != null && DataManager.borrow(books.getTitle())) {
+            books.setCount(books.getCount() - 1);
+            if (books.getCount() == 0) libraryBooks.remove(books);
+            myBooks.add(
+                    new BorrowBookMine(DataManager.getBorrowBookID(), books.getTitle(), DataManager.getBorrowDue()));
+        }
+    }
+    @Override public void init() {
+        super.init();
+        loadLibraryBooks();
+        loadMyBooks();
+    }
     @FXML void initialize() {
         tableColumnLibraryTitle.setCellValueFactory(new PropertyValueFactory<BorrowBookLibrary, String>("title"));
         tableColumnLibraryCount.setCellValueFactory(new PropertyValueFactory<BorrowBookLibrary, Integer>("count"));
@@ -48,20 +64,6 @@ public class ControllerBorrow extends ControllerBase {
         }, DataManager.user.getId());
         tableMine.setItems(myBooks);
     }
-    @Override public void init() {
-        super.init();
-        loadLibraryBooks();
-        loadMyBooks();
-    }
-    @FXML void borrow() {
-        BorrowBookLibrary books = tableLibrary.getSelectionModel().getSelectedItem();
-        if (books != null && DataManager.borrow(books.getTitle())) {
-            books.setCount(books.getCount() - 1);
-            if (books.getCount() == 0) libraryBooks.remove(books);
-            myBooks.add(new BorrowBookMine(DataManager.getBorrowBookID(), books.getTitle(),
-                                           DataManager.getBorrowDue()));
-        }
-    }
     @FXML void ret() {
         BorrowBookMine book = tableMine.getSelectionModel().getSelectedItem();
         if (book != null && DataManager.ret(book.getId())) {
@@ -75,8 +77,5 @@ public class ControllerBorrow extends ControllerBase {
             if (notContainsFlag) libraryBooks.add(new BorrowBookLibrary(book.getTitle(), 1));
             myBooks.remove(book);
         }
-    }
-    @FXML void back() {
-        SceneManager.call("navigator");
     }
 }

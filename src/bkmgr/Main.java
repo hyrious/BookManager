@@ -7,6 +7,9 @@ public class Main extends Application {
     private static String camelize(final String line) {
         return Character.toLowerCase(line.charAt(0)) + line.substring(1);
     }
+    public static void main(String[] args) {
+        launch(args);
+    }
     private void register(final String id) {
         SceneManager.set(camelize(id), new SceneWrapper(getClass().getResource("UI" + id + ".fxml")));
     }
@@ -16,10 +19,7 @@ public class Main extends Application {
     }
     @Override public void start(Stage window) {
         register("Login", "Navigator", "Borrow", "PersonalInfo", "ManageBook", "ManageUser", "ChangePassword",
-                 "ModifyPermission");
+                "ModifyPermission");
         SceneManager.start(window, "login");
-    }
-    public static void main(String[] args) {
-        launch(args);
     }
 }

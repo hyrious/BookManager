@@ -9,10 +9,20 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class ControllerLogin extends ControllerBase {
+    private Alert               loginFailed   = new Alert(AlertType.ERROR);
+    private Alert               registFailed  = new Alert(AlertType.ERROR);
+    private Alert               registSuccess = new Alert(AlertType.INFORMATION);
+    private Alert               syntaxError   = new Alert(AlertType.ERROR);
     @FXML private TextField     textFieldDatabase;
-    @FXML private TextField     textFieldUsername;
     @FXML private PasswordField textFieldPassword;
-
+    @FXML private TextField     textFieldUsername;
+    private boolean check() {
+        if (getDatabase().isEmpty() || getName().isEmpty()) {
+            syntaxError.showAndWait();
+            return false;
+        }
+        return true;
+    }
     private String getDatabase() {
         String text = textFieldDatabase.getText();
         return text.isEmpty() ? textFieldDatabase.getPromptText() : text;
@@ -29,29 +39,11 @@ public class ControllerLogin extends ControllerBase {
         textFieldPassword.clear();
         textFieldUsername.requestFocus();
     }
-
-    private Alert loginFailed   = new Alert(AlertType.ERROR);
-    private Alert registFailed  = new Alert(AlertType.ERROR);
-    private Alert syntaxError   = new Alert(AlertType.ERROR);
-    private Alert registSuccess = new Alert(AlertType.INFORMATION);
-
-    private void set(Alert x, String title, String content) {
-        x.setTitle(title);
-        x.setHeaderText(null);
-        x.setContentText(content);
-    }
     @FXML void initialize() {
         set(loginFailed, "登录失败", "用户名与密码不匹配。");
         set(registFailed, "注册失败", "已经存在该用户。");
         set(syntaxError, "格式不对", "请检查输入（数据库和用户名都不能为空）。");
         set(registSuccess, "注册成功", "你可以使用该账户登录。");
-    }
-    private boolean check() {
-        if (getDatabase().isEmpty() || getName().isEmpty()) {
-            syntaxError.showAndWait();
-            return false;
-        }
-        return true;
     }
     @FXML void login() {
         if (check()) {
@@ -68,5 +60,10 @@ public class ControllerLogin extends ControllerBase {
                 registSuccess.showAndWait();
             } else registFailed.showAndWait();
         }
+    }
+    private void set(Alert x, String title, String content) {
+        x.setTitle(title);
+        x.setHeaderText(null);
+        x.setContentText(content);
     }
 }
